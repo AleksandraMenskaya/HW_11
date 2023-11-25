@@ -1,0 +1,37 @@
+{
+  "BookName": "My phone book",
+  "chapter": {
+    "A": [
+      {
+        "Name": "Ambulance",
+        "PhoneNum": "123456789",
+        "Comment": "АААААААА"
+      },
+      {
+        "Name": "Anna",
+        "PhoneNum": "123456780",
+        "Comment": "job"
+      }
+    ],
+    "B":[
+      {
+        "Name": "Bob Dikins",
+        "PhoneNum": "+7823456789",
+        "Comment": ""
+      }
+    ],
+    "C":[
+      {
+        "Name": "Cesil",
+        "PhoneNum": "+7909456789",
+        "Comment": "never call"
+      },
+      {
+        "Name": "Cat",
+        "PhoneNum": "+7823456000",
+        "Comment": "tiny"
+      }
+    ],
+    "D":[]
+  }
+}
