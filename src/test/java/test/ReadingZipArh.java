@@ -1,30 +1,32 @@
 package test;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
+import static org.assertj.core.api.Assertions.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
 public class ReadingZipArh {
     private ClassLoader classLoader = ReadingZipArh.class.getClassLoader();
-    @Test
-    void zipFileParsingTest() throws Exception {
+    @ParameterizedTest(name = "Для файла {0} контрольная сумма должна быть {1}")
+    @CsvSource(value = {
+            "Java_Head_Firts_Java.pdf , 577943615",
+            "CheckList XLSX.xlsx , 3269606048",
+            "CheckList CSV.csv , 3366467583"
+    })
+    void zipFileParsingTest(String fileName, Long crc) throws Exception {
         try (ZipInputStream zis = new ZipInputStream(
            classLoader.getResourceAsStream("testArh.zip")
         )) {
             ZipEntry entry;
-
-            entry = zis.getNextEntry();
-            Assertions.assertEquals("Java_Head_Firts_Java.pdf", entry.getName());
-            Assertions.assertEquals(577943615, entry.getCrc());
-
-            entry = zis.getNextEntry();
-            Assertions.assertEquals("CheckList XLSX.xlsx", entry.getName());
-            Assertions.assertEquals(3269606048L, entry.getCrc());
-
-            entry = zis.getNextEntry();
-            Assertions.assertEquals("CheckList CSV.csv", entry.getName());
-            Assertions.assertEquals(3366467583L, entry.getCrc());
+            while ((entry = zis.getNextEntry()) != null) {
+                if (entry.getName().equals(fileName)) {
+                    assertThat(entry.getCrc()).isEqualTo(crc);
+                    return;
+                }
+            }
+            fail("Отсутствует " + fileName);
         }
     }
 }
+
