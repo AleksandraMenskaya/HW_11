@@ -11,7 +11,7 @@ public class ReadingZipArhParam {
     @ParameterizedTest(name = "Для файла {0} контрольная сумма должна быть {1}")
     @CsvSource(value = {
             "English Book.pdf , 3506028550",
-            "CheckList XLSX.xlsx , 3269606048",
+            "CheckList XLSX.xlsx , 1705283078",
             "CheckList CSV.csv , 3366467583"
     })
     void zipFileParsingTest(String fileName, Long crc) throws Exception {
